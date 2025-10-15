@@ -98,10 +98,69 @@ public class Acct {
     }
 
     public static void makePayment (){
+        //starting out with a print statement
+        System.out.println("Please enter in your payment.");
+        // using the double again to ask for user input
+        // mostly going to recreate the last method
+        // unsure but addinga  - sign to print as a negative number
+        double amount = -acctLedger.nextDouble();
+        Transaction diglett = new Transaction(amount);
+        starmie.add(diglett);
 
     }
 
     public static void ledgar(){
+        // creating another menu loop
+        boolean isrunning = true;
+        while(isrunning) {
+            System.out.println("""
+                    What would you like to do in the ledger?
+                    
+                    - (1) Display all entries
+                    - (2) Display deposits
+                    - (3) Display Payments 
+                    - (4) Display reports 
+                    - (5) Go back to main menu
+                    
+                    """);
+
+            // creating a user input named choose option to ask for user input again
+            int chooseOption = acctLedger.nextInt();
+            switch (chooseOption){
+                case 1;
+                    displayEntries();
+                    break;
+                case 2;
+                    displayDeposites();
+                    break;
+                case 3;
+                    displayPayments();
+                    break;
+                case 4;
+                    displayReports();
+                    break;
+                case 5;
+                    // at the moment im going to just set isrunning to false
+                    // am unsure if i need to set return to the main method
+                    isrunning = false;
+                    break;
+            }
+        }
+
+    }
+
+    public static void displayEntries(){
+
+    }
+
+    public static void displayDeposites(){
+
+    }
+
+    public static void displayPayments() {
+
+    }
+    public static void displayReports() {
 
     }
 
