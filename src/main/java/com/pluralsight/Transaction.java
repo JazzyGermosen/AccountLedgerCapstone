@@ -24,19 +24,19 @@ public class Transaction {
     // this is where I will create the getter and setter methods for my objects
 
 
-    public int getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public int getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 

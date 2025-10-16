@@ -63,12 +63,13 @@ public class Acct {
     //creating a method to help load the buffer reader
     public static void loadInfo() {
         //starting off with the buffer reader statement
-        try {BufferedReader bufReader = new BufferedReader(new FileReader("transactions.csv"));
+        try {
+            BufferedReader bufReader = new BufferedReader(new FileReader("transactions.csv"));
 
             bufReader.readLine();
 
-            while(bufReader.readLine().isEmpty()) {
-                String machop = bufReader.readLine();
+            String machop = bufReader.readLine();
+            while ((machop = bufReader.readLine()) != null) {
                 // using a variable to store the new info after splitting it properly
                 String[] pikamoney = machop.split("\\|");
                 //creating an object based on the split files
@@ -86,7 +87,7 @@ public class Acct {
     }
 
     //first we are going to start with the display add deposit
-    public static double addDeposit (){
+    public static void addDeposit() {
         // this is where we will prompt user for input on information and where will save it to the transaction.csv file
         // start with print statement
         // need to add an if statement or try catcch to make sure that it accounts for only numbers
@@ -104,28 +105,34 @@ public class Acct {
         System.out.println(vendor);
         System.out.println(description);
         System.out.println(amount);
-        Transaction wynautt = new Transaction(date, time, amount, description, vendor);
+        Transaction wynautt = new Transaction(date, time, description, vendor, amount);
         // once we create the object we need to add it to the transaction array list
         starmie.add(wynautt);
 
     }
 
-    public static void makePayment (){
+    public static void makePayment() {
         //starting out with a print statement
         System.out.println("Please enter in your payment.");
+        //fixing now
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        String description = acctLedger.nextLine();
+        String vendor = acctLedger.nextLine();
+
         // using the double again to ask for user input
         // mostly going to recreate the last method
         // unsure but addinga  - sign to print as a negative number
-        double amount = -acctLedger.nextDouble();
+        double amount = Math.abs(acctLedger.nextDouble());
         Transaction diglett = new Transaction(amount);
         starmie.add(diglett);
 
     }
 
-    public static void ledger(){
+    public static void ledger() {
         // creating another menu loop
         boolean isrunning = true;
-        while(isrunning) {
+        while (isrunning) {
             System.out.println("""
                     What would you like to do in the ledger?
                     
@@ -139,20 +146,21 @@ public class Acct {
 
             // creating a user input named choose option to ask for user input again
             int chooseOption = acctLedger.nextInt();
-            switch (chooseOption){
-                case 1;
+            switch (chooseOption) {
+                case 1:
                     displayEntries();
                     break;
-                case 2;
+                case 2:
                     displayDeposites();
                     break;
-                case 3;
+                case 3:
                     displayPayments();
                     break;
-                case 4;
+                case 4:
                     displayReports();
+                    // need to do another menu loop for display mtd, previous month, ytd and previous
                     break;
-                case 5;
+                case 5:
                     // at the moment im going to just set isrunning to false
                     // am unsure if i need to set return to the main method
                     isrunning = false;
@@ -162,17 +170,18 @@ public class Acct {
 
     }
 
-    public static void displayEntries(){
+    public static void displayEntries() {
 
     }
 
-    public static void displayDeposites(){
+    public static void displayDeposites() {
 
     }
 
     public static void displayPayments() {
 
     }
+
     public static void displayReports() {
 
     }
