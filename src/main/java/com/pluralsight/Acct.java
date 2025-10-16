@@ -14,13 +14,13 @@ public class Acct {
     public static ArrayList<Transaction> starmie = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadInfo();
         // create a welcome print to start off the code
         System.out.println("Welcome to the PikaBank!!! How may I help you? ");
-        //loadInfo(Transaction.csv);
         // now that we created a method to read the transaction.csv file next we need to start with the main menu
         // we also need to create a menu loop so the first thing we will do is set isrunning = true
         boolean isRunning = true;
-        while (optionChoice) {
+        while (isRunning) {
 
             System.out.println("""
                     What would you like to do?
@@ -43,7 +43,7 @@ public class Acct {
                     break;
                 case 3:
                     // Display Ledger method
-                    ledgar();
+                    ledger();
                     break;
                 case 4:
                     System.out.println("Thank you for using PikaBank! We hope to see you again ");
@@ -61,17 +61,23 @@ public class Acct {
 
 
     //creating a method to help load the buffer reader
-    public static void loadInfo(String nameOfFile) {
+    public static void loadInfo() {
         //starting off with the buffer reader statement
-        try {BufferedReader bufReader = new BufferedReader(new FileReader());
-            // using a variable to store the new info after splitting it properly
-            String[] pikamoney = pikamoney.split("\\|");
-            //creating an object based on the split files
-            //im not sure how to fix the first 2 but we will figure that out later
-            // this was supposed to be pikamoney but not sure
-            Transaction snivy = new Transaction(LocalDate.MIN[0], LocalTime.MIN[1], pikamoney[2], pikamoney[3], pikamoney[4]);
-            // adding this to the product thingie
-            starmie.add(snivy);
+        try {BufferedReader bufReader = new BufferedReader(new FileReader("transactions.csv"));
+
+            bufReader.readLine();
+
+            while(bufReader.readLine().isEmpty()) {
+                String machop = bufReader.readLine();
+                // using a variable to store the new info after splitting it properly
+                String[] pikamoney = machop.split("\\|");
+                //creating an object based on the split files
+                //im not sure how to fix the first 2 but we will figure that out later
+                // this was supposed to be pikamoney but not sure
+                Transaction snivy = new Transaction(LocalDate.parse(pikamoney[0]), LocalTime.parse(pikamoney[1]), pikamoney[2], pikamoney[3], Double.parseDouble(pikamoney[4]));
+                // adding this to the product thingie
+                starmie.add(snivy);
+            }
 
         } catch (Exception e) {
             System.out.println("Sorry I dont think i understand. Please try again later.");
@@ -86,12 +92,19 @@ public class Acct {
         // need to add an if statement or try catcch to make sure that it accounts for only numbers
         System.out.println("Please enter your deposit information: ");
         // didnt add a user input for desription aand vendor, will make a method later to make this more efficient
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
         String description = acctLedger.nextLine();
         String vendor = acctLedger.nextLine();
         double amount = acctLedger.nextDouble();
         // double[] = idk how to set the thing to the info but something tells me i also need a while loop to be able to
         // idk what the issues is here but will check later
-        Transaction wynautt = new Transaction(amount, vendor, description);
+        System.out.println(date);
+        System.out.println(time);
+        System.out.println(vendor);
+        System.out.println(description);
+        System.out.println(amount);
+        Transaction wynautt = new Transaction(date, time, amount, description, vendor);
         // once we create the object we need to add it to the transaction array list
         starmie.add(wynautt);
 
@@ -109,7 +122,7 @@ public class Acct {
 
     }
 
-    public static void ledgar(){
+    public static void ledger(){
         // creating another menu loop
         boolean isrunning = true;
         while(isrunning) {
