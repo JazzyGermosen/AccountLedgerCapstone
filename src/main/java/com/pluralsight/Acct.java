@@ -1,7 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -35,6 +34,7 @@ public class Acct {
             // this is where we will prompt for user input to make a choice
             // now we will be using a switch statement that will contain the other methods that we need
             int chooseOption = acctLedger.nextInt();
+            acctLedger.nextLine();
             switch (chooseOption) {
                 case 1:
                     // Display Add Deposit
@@ -98,14 +98,24 @@ public class Acct {
         // didnt add a user input for desription aand vendor, will make a method later to make this more efficient
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
+        System.out.println("please enter the description");
         String description = acctLedger.nextLine();
+        System.out.println("please enter the vendor");
         String vendor = acctLedger.nextLine();
+        System.out.println("please enter the amount");
         double amount = acctLedger.nextDouble();
+        acctLedger.nextLine();
         // double[] = idk how to set the thing to the info but something tells me i also need a while loop to be able to
         // idk what the issues is here but will check later
         transactions wynautt = new transactions(date, time, description, vendor, amount);
         // once we create the object we need to add it to the transaction array list
         starmie.add(wynautt);
+        try(FileWriter fileWriter = new FileWriter("transactions.csv", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);) {
+            String line =  date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -121,8 +131,17 @@ public class Acct {
         // mostly going to recreate the last method
         // unsure but addinga  - sign to print as a negative number
         double amount = -Math.abs(acctLedger.nextDouble());
+        acctLedger.nextLine();
         transactions diglett = new transactions(date, time, description, vendor, amount);
         starmie.add(diglett);
+        try(FileWriter fileWriter = new FileWriter("transactions.csv", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);) {
+            String line =  date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
     }
 
@@ -143,6 +162,7 @@ public class Acct {
 
             // creating a user input named choose option to ask for user input again
             int chooseOption = acctLedger.nextInt();
+            acctLedger.nextLine();
             switch (chooseOption) {
                 case 1:
                     displayEntries(starmie);
@@ -277,7 +297,7 @@ public class Acct {
         String pokevendor = acctLedger.nextLine();
         List<transactions> cake = starmie.stream()
                 //filters starmie and filters it based on the conditional statement if its greater then 0
-                .filter(t -> t.getVendor().collect(Collectors.toList());
+                .filter(t -> t.getVendor().equals(pokevendor)).collect(Collectors.toList());
         for (transactions t : cake) {
             t.display();
         }
