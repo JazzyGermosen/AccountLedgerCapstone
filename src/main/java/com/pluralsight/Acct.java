@@ -201,18 +201,18 @@ public class Acct {
     }
 
     public static void displayDeposits() {
-        ArrayList<transactions> cake = starmie.stream()
+        ArrayList<transactions> ponyta = starmie.stream()
                 //filters starmie and filters it based on the conditional statement if its greater then 0
                 .filter(t -> t.getAmount() > 0).collect(Collectors.toCollection(ArrayList::new)); // Only positive amounts
-        displayEntries(cake);
+        displayEntries(ponyta);
 
     }
 
     public static void displayPayments() {
-        ArrayList<transactions> cake = starmie.stream()
+        ArrayList<transactions> eletrike = starmie.stream()
                 //filters starmie and filters it based on the conditional statement if its less then 0
                 .filter(t -> t.getAmount() < 0).collect(Collectors.toCollection(ArrayList::new));
-        displayEntries(cake);
+        displayEntries(eletrike);
     }
 
 
@@ -261,40 +261,40 @@ public class Acct {
     // since some of the data type is not recent the other methods will not print anything
     //adding in some data to show that it works
     public static void monthToDate() {
-        List<transactions> cake = starmie.stream()
+        List<transactions> voltorb = starmie.stream()
                 //filters starmie and filters it based on the conditional statement if its greater then 0
                 .filter(t -> t.getDate().getMonth() == LocalDate.now().getMonth() && t.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
-        for (transactions t : cake) {
+        for (transactions t : voltorb) {
             t.display();
         }
 
     }
 
     public static void previousMonth() {
-        List<transactions> cake = starmie.stream()
+        List<transactions> charizard = starmie.stream()
                 //this is checking for the previous month
                 .filter(t -> t.getDate().getMonth() == LocalDate.now().minusMonths(1).getMonth()&& t.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
-        for (transactions t : cake) {
+        for (transactions t : charizard) {
             t.display();
         }
 
     }
 
     public static void yearToDate() {
-        List<transactions> cake = starmie.stream()
+        List<transactions> gardevior = starmie.stream()
                 //this is checking for the year to date and then display
                 .filter(t -> t.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
-        for (transactions t : cake) {
+        for (transactions t : gardevior) {
             t.display();
         }
 
     }
 
     public static void previousYear() {
-        List<transactions> cake = starmie.stream()
+        List<transactions> garchomp = starmie.stream()
                 //this is filtering for the previous year
                 .filter(t -> t.getDate().getYear() == LocalDate.now().minusYears(1).getYear()).collect(Collectors.toList());
-        for (transactions t : cake) {
+        for (transactions t : garchomp) {
             t.display();
         }
 
@@ -303,10 +303,10 @@ public class Acct {
     public static void searchByVendor() {
         // ask for user input
         String pokevendor = acctLedger.nextLine();
-        List<transactions> cake = starmie.stream()
+        List<transactions> sandile = starmie.stream()
                 //this is filtering by vendor and displaying it
                 .filter(t -> t.getVendor().equals(pokevendor)).collect(Collectors.toList());
-        for (transactions t : cake) {
+        for (transactions t : sandile) {
             t.display();
         }
 
