@@ -127,11 +127,14 @@ public class Acct {
         //fixing now
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
+        System.out.println("please enter your description");
         String description = acctLedger.nextLine();
+        System.out.println("please enter the vendor");
         String vendor = acctLedger.nextLine();
         // using the double again to ask for user input
         // mostly going to recreate the last method
         // unsure but addinga  - sign to print as a negative number
+        System.out.println("please enter the amount");
         double amount = -Math.abs(acctLedger.nextDouble());
         acctLedger.nextLine();
         transactions diglett = new transactions(date, time, description, vendor, amount);
