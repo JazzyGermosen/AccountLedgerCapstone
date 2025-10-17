@@ -110,6 +110,7 @@ public class Acct {
         transactions wynautt = new transactions(date, time, description, vendor, amount);
         // once we create the object we need to add it to the transaction array list
         starmie.add(wynautt);
+        System.out.println("thank you for making a deposit");
         try(FileWriter fileWriter = new FileWriter("transactions.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);) {
             String line =  date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
@@ -139,6 +140,7 @@ public class Acct {
         acctLedger.nextLine();
         transactions diglett = new transactions(date, time, description, vendor, amount);
         starmie.add(diglett);
+        System.out.println("thank you for making a payment");
         try(FileWriter fileWriter = new FileWriter("transactions.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);) {
             String line =  date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
