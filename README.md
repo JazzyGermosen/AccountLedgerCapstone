@@ -4,13 +4,13 @@ This README file is generated based on the source code provided.
 
 ## Table of Contents
 
-  * [Project Description](#-project-description)
-  * [Application Screens](#-application-screen)
-      * [Main Menu](#-main-menu)
-      * [Ledger Menu](#-ledger-menu)
-      * [Reports Menu](#-reports-menu)
-  * [Interesting Piece of Code](#-interesting-piece-of-code)
-  * [Project Tree](#-project-tree)
+  * [Project Description](#project-description)
+  * [Application Screens](#application-screens)
+      * [Main Menu](#main-menu)
+      * [Ledger Menu](#ledger-menu)
+      * [Reports Menu](#reports-menu)
+  * [Interesting Piece of Code](#interesting-piece-of-code)
+  * [Project Tree](#project-tree)
 
 -----
 
