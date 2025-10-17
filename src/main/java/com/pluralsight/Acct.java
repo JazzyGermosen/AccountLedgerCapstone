@@ -3,15 +3,18 @@ package com.pluralsight;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Acct {
 
     // creating a scanner for user input outside of the main method
     public static Scanner acctLedger = new Scanner(System.in);
-    public static ArrayList<Transaction> starmie = new ArrayList<>();
+    public static ArrayList<transactions> starmie = new ArrayList<>();
 
     public static void main(String[] args) {
         loadInfo();
@@ -75,7 +78,7 @@ public class Acct {
                 //creating an object based on the split files
                 //im not sure how to fix the first 2 but we will figure that out later
                 // this was supposed to be pikamoney but not sure
-                Transaction snivy = new Transaction(LocalDate.parse(pikamoney[0]), LocalTime.parse(pikamoney[1]), pikamoney[2], pikamoney[3], Double.parseDouble(pikamoney[4]));
+                transactions snivy = new transactions(LocalDate.parse(pikamoney[0]), LocalTime.parse(pikamoney[1]), pikamoney[2], pikamoney[3], Double.parseDouble(pikamoney[4]));
                 // adding this to the product thingie
                 starmie.add(snivy);
             }
@@ -100,12 +103,7 @@ public class Acct {
         double amount = acctLedger.nextDouble();
         // double[] = idk how to set the thing to the info but something tells me i also need a while loop to be able to
         // idk what the issues is here but will check later
-        System.out.println(date);
-        System.out.println(time);
-        System.out.println(vendor);
-        System.out.println(description);
-        System.out.println(amount);
-        Transaction wynautt = new Transaction(date, time, description, vendor, amount);
+        transactions wynautt = new transactions(date, time, description, vendor, amount);
         // once we create the object we need to add it to the transaction array list
         starmie.add(wynautt);
 
@@ -119,12 +117,11 @@ public class Acct {
         LocalTime time = LocalTime.now();
         String description = acctLedger.nextLine();
         String vendor = acctLedger.nextLine();
-
         // using the double again to ask for user input
         // mostly going to recreate the last method
         // unsure but addinga  - sign to print as a negative number
-        double amount = Math.abs(acctLedger.nextDouble());
-        Transaction diglett = new Transaction(amount);
+        double amount = -Math.abs(acctLedger.nextDouble());
+        transactions diglett = new transactions(date, time, description, vendor, amount);
         starmie.add(diglett);
 
     }
@@ -148,16 +145,16 @@ public class Acct {
             int chooseOption = acctLedger.nextInt();
             switch (chooseOption) {
                 case 1:
-                    displayEntries();
+                    displayEntries(starmie);
                     break;
                 case 2:
-                    displayDeposites();
+                    displayDeposits();
                     break;
                 case 3:
                     displayPayments();
                     break;
                 case 4:
-                    displayReports();
+                    reports();
                     // need to do another menu loop for display mtd, previous month, ytd and previous
                     break;
                 case 5:
@@ -170,19 +167,120 @@ public class Acct {
 
     }
 
-    public static void displayEntries() {
-
+    public static void displayEntries(ArrayList<transactions> list) {
+        //creating a display
+        for (transactions t : list) {
+            t.display();
+        }
     }
 
-    public static void displayDeposites() {
+    public static void displayDeposits() {
+        ArrayList<transactions> cake = starmie.stream()
+                //filters starmie and filters it based on the conditional statement if its greater then 0
+                .filter(t -> t.getAmount() > 0).collect(Collectors.toCollection(ArrayList::new)); // Only positive amounts
+        displayEntries(cake);
 
     }
 
     public static void displayPayments() {
+        ArrayList<transactions> cake = starmie.stream()
+                //filters starmie and filters it based on the conditional statement if its greater then 0
+                .filter(t -> t.getAmount() < 0).collect(Collectors.toCollection(ArrayList::new));
+        displayEntries(cake);
+    }
+
+
+    public static void reports() {
+        // creating another menu loop for reports
+        // setting isrunning to true
+        boolean isRunning = true;
+        while (isRunning) {
+            // asking for what user wants to do
+            System.out.println("""
+                    Reports
+                    
+                    1.) Month to Date
+                    2.) Previous Month
+                    3.) Year to Date
+                    4.) Previous Year
+                    5.) Search by vendor
+                    0.) Back
+                    """);
+            // asking for user input to store in the switch statement
+            int userInput = acctLedger.nextInt();
+            switch (userInput) {
+                case 1:
+                    monthToDate();
+                    break;
+                case 2:
+                    previousMonth();
+                    break;
+                case 3:
+                    yearToDate();
+                    break;
+                case 4:
+                    previousYear();
+                    break;
+                case 5:
+                    searchByVendor();
+                    break;
+                case 0:
+                    isRunning = false;
+                    break;
+
+            }
+        }
+    }
+
+    public static void monthToDate() {
+        List<transactions> cake = starmie.stream()
+                //filters starmie and filters it based on the conditional statement if its greater then 0
+                .filter(t -> t.getDate().getMonth() == LocalDate.now().getMonth() && t.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
+        for (transactions t : cake) {
+            t.display();
+        }
 
     }
 
-    public static void displayReports() {
+    public static void previousMonth() {
+        List<transactions> cake = starmie.stream()
+                //filters starmie and filters it based on the conditional statement if its greater then 0
+                .filter(t -> t.getDate().getMonth() == LocalDate.now().minusMonths(1).getMonth()&& t.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
+        for (transactions t : cake) {
+            t.display();
+        }
+
+    }
+
+    public static void yearToDate() {
+        List<transactions> cake = starmie.stream()
+                //filters starmie and filters it based on the conditional statement if its greater then 0
+                .filter(t -> t.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
+        for (transactions t : cake) {
+            t.display();
+        }
+
+    }
+
+    public static void previousYear() {
+        List<transactions> cake = starmie.stream()
+                //filters starmie and filters it based on the conditional statement if its greater then 0
+                .filter(t -> t.getDate().getYear() == LocalDate.now().minusYears(1).getYear()).collect(Collectors.toList());
+        for (transactions t : cake) {
+            t.display();
+        }
+
+    }
+
+    public static void searchByVendor() {
+        // ask for user input
+        String pokevendor = acctLedger.nextLine();
+        List<transactions> cake = starmie.stream()
+                //filters starmie and filters it based on the conditional statement if its greater then 0
+                .filter(t -> t.getVendor().collect(Collectors.toList());
+        for (transactions t : cake) {
+            t.display();
+        }
 
     }
 
