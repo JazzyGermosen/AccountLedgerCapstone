@@ -207,7 +207,7 @@ public class Acct {
 
     public static void displayPayments() {
         ArrayList<transactions> cake = starmie.stream()
-                //filters starmie and filters it based on the conditional statement if its greater then 0
+                //filters starmie and filters it based on the conditional statement if its less then 0
                 .filter(t -> t.getAmount() < 0).collect(Collectors.toCollection(ArrayList::new));
         displayEntries(cake);
     }
@@ -269,7 +269,7 @@ public class Acct {
 
     public static void previousMonth() {
         List<transactions> cake = starmie.stream()
-                //filters starmie and filters it based on the conditional statement if its greater then 0
+                //this is checking for the previous month
                 .filter(t -> t.getDate().getMonth() == LocalDate.now().minusMonths(1).getMonth()&& t.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
         for (transactions t : cake) {
             t.display();
@@ -279,7 +279,7 @@ public class Acct {
 
     public static void yearToDate() {
         List<transactions> cake = starmie.stream()
-                //filters starmie and filters it based on the conditional statement if its greater then 0
+                //this is checking for the year to date and then display
                 .filter(t -> t.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
         for (transactions t : cake) {
             t.display();
@@ -289,7 +289,7 @@ public class Acct {
 
     public static void previousYear() {
         List<transactions> cake = starmie.stream()
-                //filters starmie and filters it based on the conditional statement if its greater then 0
+                //this is filtering for the previous year
                 .filter(t -> t.getDate().getYear() == LocalDate.now().minusYears(1).getYear()).collect(Collectors.toList());
         for (transactions t : cake) {
             t.display();
@@ -301,7 +301,7 @@ public class Acct {
         // ask for user input
         String pokevendor = acctLedger.nextLine();
         List<transactions> cake = starmie.stream()
-                //filters starmie and filters it based on the conditional statement if its greater then 0
+                //this is filtering by vendor and displaying it
                 .filter(t -> t.getVendor().equals(pokevendor)).collect(Collectors.toList());
         for (transactions t : cake) {
             t.display();
