@@ -113,6 +113,8 @@ public class Acct {
         try(FileWriter fileWriter = new FileWriter("transactions.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);) {
             String line =  date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
+            bufferedWriter.newLine();
+            bufferedWriter.write(line);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -137,10 +139,11 @@ public class Acct {
         try(FileWriter fileWriter = new FileWriter("transactions.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);) {
             String line =  date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
+            bufferedWriter.newLine();
+            bufferedWriter.write(line);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
 
 
     }
@@ -228,6 +231,7 @@ public class Acct {
                     """);
             // asking for user input to store in the switch statement
             int userInput = acctLedger.nextInt();
+            acctLedger.nextLine();
             switch (userInput) {
                 case 1:
                     monthToDate();
@@ -251,7 +255,8 @@ public class Acct {
             }
         }
     }
-
+    // since some of the data type is not recent the other methods will not print anything
+    //adding in some data to show that it works
     public static void monthToDate() {
         List<transactions> cake = starmie.stream()
                 //filters starmie and filters it based on the conditional statement if its greater then 0
